@@ -1,0 +1,35 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Catalog</title>
+</head>
+<body>
+    <h1>Book Catalog</h1>
+
+    <!-- Search form (if needed) -->
+    <form action="{{ url_for('search_books') }}" method="get">
+        <input type="text" name="query" placeholder="Search books...">
+        <input type="submit" value="Search">
+    </form>
+
+    <!-- Additional buttons -->
+    <div>
+        <a href="{{ url_for('add_book') }}"><button>Add New Book</button></a>
+        <a href="{{ url_for('api_docs') }}"><button>API Documentation</button></a>
+    </div>
+
+    <ul>
+        {% for book in books %}
+            <li>
+                <a href="{{ url_for('view_book', book_id=book['_id']) }}">
+                    {{ book.title }} by {{ book.author }} (Published: {{ book.published_year }}, Genre: {{ book.genre }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
